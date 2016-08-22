@@ -13,6 +13,7 @@ public class PrefManager {
     private Context context;
 
     private static final String TOKEN = "test_github_client_token";
+    private static final String USER_NAME = "test_github_client_username";
 
     public PrefManager(Context context) {
         this.context = context;
@@ -25,5 +26,13 @@ public class PrefManager {
 
     public void setToken(String token){
         prefs.edit().putString(TOKEN,token).apply();
+    }
+
+    public String getUserName(){
+        return prefs.getString(USER_NAME,"");
+    }
+
+    public void setUserName(String userName){
+        prefs.edit().putString(USER_NAME,userName).apply();
     }
 }

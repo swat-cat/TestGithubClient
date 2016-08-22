@@ -7,36 +7,47 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:id="@+id/login_root"
     tools:context=".MainActivity"
-
-    android:background="#ffffff">
+    >
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:src="@mipmap/github_logo_large"/>
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:padding="10dp"
-        >
+        android:padding="10dp">
 
         <EditText
             android:id="@+id/etUserName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/edittext_top_bg"
             android:padding="10dp"
+            android:lines="1"
             android:hint="Email"
             android:textColorHint="#cccccc" />
         <EditText
             android:id="@+id/etPass"
             android:layout_width="match_parent"
+            android:background="@drawable/edittext_bottom_bg"
             android:layout_height="wrap_content"
             android:layout_marginTop="-2dp"
             android:padding="10dp"
+            android:lines="1"
+            android:inputType="textPassword"
             android:hint="Password"
             android:textColorHint="#cccccc"/>
         <Button
             android:id="@+id/btnSingIn"
             android:layout_width="match_parent"
+            android:background="@drawable/button_default_bg"
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:layout_margin="4dp"
