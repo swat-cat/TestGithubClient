@@ -2,12 +2,15 @@ package com.mermakov.testgithubclient;
 
 import android.support.multidex.MultiDexApplication;
 
+import com.mermakov.testgithubclient.utils.cache.ModelService;
+
 /**
  * Created by max_ermakov on 8/21/16.
  */
 public class App extends MultiDexApplication {
     private static App instance;
     private PrefManager prefManager;
+    private ModelService modelService;
 
     public static App getInstance() {
         if (instance == null) {
@@ -21,9 +24,14 @@ public class App extends MultiDexApplication {
         super.onCreate();
         instance = this;
         prefManager = new PrefManager(this);
+        modelService = new ModelService(this);
     }
 
     public PrefManager getPrefManager() {
         return prefManager;
+    }
+
+    public ModelService getModelService() {
+        return modelService;
     }
 }

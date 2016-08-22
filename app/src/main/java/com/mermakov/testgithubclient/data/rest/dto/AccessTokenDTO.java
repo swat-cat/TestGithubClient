@@ -1,7 +1,4 @@
-package com.mermakov.testgithubclient.rest.dto;
-
-import android.os.Parcel;
-import android.os.Parcelable;
+package com.mermakov.testgithubclient.data.rest.dto;
 
 /**
  * Created by max_ermakov on 8/21/16.

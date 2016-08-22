@@ -1,4 +1,4 @@
-package com.mermakov.testgithubclient.rest.dto;
+package com.mermakov.testgithubclient.data.rest.dto;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -58,4 +58,8 @@ public class OwnerDto {
     @SerializedName("site_admin")
     @Expose
     private Boolean siteAdmin;
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
 }

@@ -1,4 +1,4 @@
-package com.mermakov.testgithubclient.rest.dto;
+package com.mermakov.testgithubclient.data.rest.dto;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -212,4 +212,15 @@ public class RepoDto {
     @Expose
     private String defaultBranch;
 
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public OwnerDto getOwner() {
+        return owner;
+    }
 }

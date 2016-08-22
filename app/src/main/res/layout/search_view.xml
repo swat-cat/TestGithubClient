@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:weightSum="5">
+
+    <AutoCompleteTextView
+        android:layout_width="0dp"
+        android:layout_height="46dp"
+        android:id="@+id/search_field"
+        android:background="@drawable/edit_text_bg"
+        android:layout_weight="5"/>
+    <ImageView
+        android:layout_width="46dp"
+        android:layout_height="46dp"
+        android:id="@+id/search_icon"
+        android:layout_gravity="center_horizontal"/>
+
+</LinearLayout>

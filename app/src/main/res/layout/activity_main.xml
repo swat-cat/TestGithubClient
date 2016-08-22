@@ -9,8 +9,38 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.mermakov.testgithubclient.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <include layout="@layout/search_view"
+        android:id="@+id/search_view"/>
+    <FrameLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:layout_below="@+id/search_view">
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/repos_list">
+        </android.support.v7.widget.RecyclerView>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:padding="6dp"
+            android:layout_height="200dp">
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/search_result_list">
+            </android.support.v7.widget.RecyclerView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="No rsults"/>
+            <ProgressBar
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:id="@+id/search_progress"/>
+        </FrameLayout>
+    </FrameLayout>
 </RelativeLayout>

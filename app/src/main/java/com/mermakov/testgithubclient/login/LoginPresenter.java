@@ -1,8 +1,17 @@
 package com.mermakov.testgithubclient.login;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.mermakov.testgithubclient.App;
+import com.mermakov.testgithubclient.MainActivity;
+import com.mermakov.testgithubclient.Tools;
+import com.mermakov.testgithubclient.data.RepoModel;
+import com.mermakov.testgithubclient.data.rest.dto.RepoDataDto;
+
+import okhttp3.Credentials;
 import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
@@ -15,12 +24,14 @@ public class LoginPresenter implements LoginContract.UserActions{
     private static final String TAG = LoginPresenter.class.getSimpleName();
 
     private LoginContract.View view;
+    private Activity activity;
     private Observable<CharSequence> nameChangeObservable;
     private Observable<CharSequence> passwordChangeObservable;
     private Subscription loginSubscription = null;
 
-    public LoginPresenter(LoginContract.View view) {
+    public LoginPresenter(LoginContract.View view, Activity activity) {
         this.view = view;
+        this.activity = activity;
         passwordChangeObservable = view.passwordTextChangeAction().skip(1);
         nameChangeObservable = view.loginTextChangeAction().skip(1);
         setupLoginEnable();
@@ -76,12 +87,39 @@ public class LoginPresenter implements LoginContract.UserActions{
             @Override
             public void onNext(Void aVoid) {
                 Log.d(TAG, "Click");
+                final String login = view.getLogin().getText().toString().trim();
+                String password = view.getPassword().getText().toString().trim();
+                final String credentials = Credentials.basic(login, password);
+                App.getInstance().getModelService().getRepoModel(credentials)
+                    .resetRepoData().subscribe(new Subscriber<RepoDataDto>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(RepoDataDto repoDataDto) {
+                        if (repoDataDto!=null){
+                            if (!Tools.isNullOrEmpty(repoDataDto.getRepos())){
+                                App.getInstance().getModelService().getRepoModel(credentials).setRepoDataDto(repoDataDto);
+                                App.getInstance().getPrefManager().setToken(credentials);
+                                App.getInstance().getPrefManager().setUserName(login);
+                                loginAction();
+                            }
+                        }
+                    }
+                });
             }
         });
     }
 
     @Override
     public void loginAction() {
-
+        activity.startActivity(new Intent(activity, MainActivity.class));
     }
 }

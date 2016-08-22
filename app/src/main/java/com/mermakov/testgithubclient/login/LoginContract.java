@@ -1,5 +1,7 @@
 package com.mermakov.testgithubclient.login;
 
+import android.widget.EditText;
+
 import rx.Observable;
 
 public interface LoginContract {
@@ -10,6 +12,8 @@ public interface LoginContract {
         Observable<Void> loginButtonAction();
         Observable<CharSequence> loginTextChangeAction();
         Observable<CharSequence> passwordTextChangeAction();
+        EditText getLogin();
+        EditText getPassword();
     }
     interface UserActions{
         void loginAction();

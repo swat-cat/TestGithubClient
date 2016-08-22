@@ -1,8 +1,7 @@
-package com.mermakov.testgithubclient.rest;
+package com.mermakov.testgithubclient.data.rest;
 
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.TypeAdapter;

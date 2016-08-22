@@ -1,6 +1,6 @@
-package com.mermakov.testgithubclient.rest;
+package com.mermakov.testgithubclient.data.rest;
 
-import com.mermakov.testgithubclient.rest.dto.DataDto;
+import com.mermakov.testgithubclient.data.rest.dto.RepoDataDto;
 
 import retrofit2.http.GET;
 import rx.Observable;
@@ -11,9 +11,9 @@ public interface GithubApi {
      * See https://developer.github.com/v3/repos/#list-contributors
      */
     @GET("/user/repos")
-    Observable<DataDto> repositories();
+    Observable<RepoDataDto> repositories();
 
     @GET("/user/repos")
-    DataDto getRepositories();
+    RepoDataDto getRepositories();
 
 }

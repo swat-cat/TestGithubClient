@@ -63,4 +63,12 @@ public class LoginView implements LoginContract.View {
     public void setLoginButtonEnable(boolean enable) {
         button.setEnabled(enable);
     }
+
+    public EditText getLogin() {
+        return login;
+    }
+
+    public EditText getPassword() {
+        return password;
+    }
 }

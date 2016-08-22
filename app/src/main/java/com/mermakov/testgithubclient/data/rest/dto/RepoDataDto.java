@@ -1,4 +1,4 @@
-package com.mermakov.testgithubclient.rest.dto;
+package com.mermakov.testgithubclient.data.rest.dto;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by max_ermakov on 8/22/16.
  */
-public class DataDto {
+public class RepoDataDto {
     @SerializedName("data")
     private List<RepoDto> repos;
 
