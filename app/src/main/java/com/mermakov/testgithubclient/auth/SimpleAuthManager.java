@@ -34,31 +34,4 @@ public class SimpleAuthManager {
         githubApi = GithubService.createGithubService();
     }
 
-    public void openLoginInBrowser() {
-        String initialScope = "user,public_repo,repo,delete_repo,notifications,gist";
-        HttpUrl.Builder url = new HttpUrl.Builder()
-                .scheme("https")
-                .host(OAUTH_HOST)
-                .addPathSegment("login")
-                .addPathSegment("oauth")
-                .addPathSegment("authorize")
-                .addQueryParameter("client_id",Constants.CLIENT_ID)
-                .addQueryParameter("scope", initialScope);
-
-        Intent intent = new Intent(activity, LoginWebViewActivity.class);
-        intent.putExtra(INTENT_EXTRA_URL, url.toString());
-        activity.startActivityForResult(intent, WEBVIEW_REQUEST_CODE);
-    }
-
-    public Observable<AccessTokenDTO> getAccessToken(Uri uri){
-        String code = uri.getQueryParameter("code");
-        RequestTokenDTO tokenDTO = new RequestTokenDTO();
-        tokenDTO.client_id = Constants.CLIENT_ID;
-        tokenDTO.client_secret = Constants.CLIENT_SECRET;
-        tokenDTO.redirect_uri = Constants.REDIRECT_URL;
-        tokenDTO.code = code;
-        return githubApi.requestToken(tokenDTO)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
-    }
 }

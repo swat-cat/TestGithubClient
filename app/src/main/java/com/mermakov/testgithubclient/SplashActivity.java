@@ -15,7 +15,7 @@ import android.widget.ImageView;
 import com.mermakov.testgithubclient.auth.SimpleAuthManager;
 import com.mermakov.testgithubclient.rest.GithubApi;
 import com.mermakov.testgithubclient.rest.GithubService;
-import com.mermakov.testgithubclient.rest.dto.AccessTokenDTO;
+import com.mermakov.testgithubclient.rest.dto.DataDto;
 import com.mermakov.testgithubclient.rest.dto.RepoDto;
 import com.mermakov.testgithubclient.rest.dto.User;
 
@@ -44,12 +44,27 @@ public class SplashActivity extends AppCompatActivity{
         logo = (ImageView) findViewById(R.id.logo);
         preparePulse();
         scaleDown.start();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                authManager.openLoginInBrowser();
-            }
-        }, 3000);
+        GithubApi loginService =
+                GithubService.createGithubService();
+        loginService.repositories()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<DataDto>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e(TAG, e.getLocalizedMessage());
+                    }
+
+                    @Override
+                    public void onNext(DataDto repoDtos) {
+                        Log.d(TAG,"fetched");
+                    }
+                });
     }
 
     private void preparePulse(){
@@ -60,27 +75,5 @@ public class SplashActivity extends AppCompatActivity{
 
         scaleDown.setRepeatCount(ObjectAnimator.INFINITE);
         scaleDown.setRepeatMode(ObjectAnimator.REVERSE);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == SimpleAuthManager.WEBVIEW_REQUEST_CODE && resultCode == RESULT_OK)
-            authManager.getAccessToken(data.getData()).subscribe(new Subscriber<AccessTokenDTO>() {
-                @Override
-                public void onCompleted() {
-
-                }
-
-                @Override
-                public void onError(Throwable e) {
-                    Log.e(TAG,e.getLocalizedMessage());
-                }
-
-                @Override
-                public void onNext(AccessTokenDTO accessTokenDTO) {
-                    Log.d(TAG,accessTokenDTO.access_token);
-                }
-            });
     }
 }
