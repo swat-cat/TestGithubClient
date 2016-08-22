@@ -11,6 +11,7 @@ import java.io.IOException;
 
 import okhttp3.Credentials;
 import okhttp3.Interceptor;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -23,10 +24,12 @@ import retrofit2.http.HTTP;
 
 public class GithubService {
     private static final String TAG = GithubService.class.getSimpleName();
+    public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+
 
     private GithubService() { }
 
-    public static GithubApi createGithubService() {
+    public static GithubApi createGithubService(String credentials) {
         Gson gson = new GsonBuilder() //do we really need such customization?
                 .registerTypeAdapterFactory(new ItemTypeAdapterFactory())
 //                .setDateFormat("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'SSS'Z'")
@@ -34,7 +37,7 @@ public class GithubService {
                 .create();
 
         Retrofit.Builder builder = new Retrofit.Builder().addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create(gson))
+                .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl("https://api.github.com");
 
 
@@ -54,11 +57,21 @@ public class GithubService {
                             .addHeader("Accept","application/vnd.github.v3+json")
                             .build();
                     Response response = null;
+                    String newStringBody = "";
                     try {
                         response = chain.proceed(newReq);
                         ResponseBody body = response.body();
                         Log.d(TAG, "HTTP " + response.code() + " URL=" + response.request().url().toString());
-                        Log.d(TAG,body.string());
+                        String bodyString = body.string();
+                        Log.d(TAG,bodyString);
+                        if(bodyString.startsWith("[")){
+                            newStringBody = "{\"data\":"+bodyString+"}";
+                            Log.d(TAG,newStringBody);
+                            final Response.Builder newResponse = response.newBuilder()
+                                    .body(ResponseBody.create(JSON, newStringBody));
+                            response = newResponse.build();
+                        }
+
                     } catch (IOException e) {
                         e.getLocalizedMessage();
                     }
