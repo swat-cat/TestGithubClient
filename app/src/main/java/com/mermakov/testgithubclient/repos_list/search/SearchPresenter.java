@@ -1,6 +1,7 @@
 package com.mermakov.testgithubclient.repos_list.search;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import com.mermakov.testgithubclient.App;
 import com.mermakov.testgithubclient.Tools;
@@ -8,6 +9,7 @@ import com.mermakov.testgithubclient.data.RepoModel;
 import com.mermakov.testgithubclient.data.rest.dto.RepoDataDto;
 import com.mermakov.testgithubclient.data.rest.dto.SearchResultDto;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -73,7 +75,6 @@ public class SearchPresenter implements SearchContract.ActionEvents {
                     @Override
                     public void onNext(CharSequence charSequence) {
                         view.showProgress(true);
-                        view.showList(true);
                         search(charSequence.toString());
                     }
                 });
@@ -87,6 +88,7 @@ public class SearchPresenter implements SearchContract.ActionEvents {
             view.showList(false);
             return;
         }
+        view.showList(true);
         query = query+"+user:"+App.getInstance().getPrefManager().getUserName();
         model.searchRepoData(query)
                 .subscribe(new Subscriber<SearchResultDto>() {
@@ -98,6 +100,13 @@ public class SearchPresenter implements SearchContract.ActionEvents {
                     @Override
                     public void onError(Throwable e) {
                         Log.e(TAG,e.getLocalizedMessage());
+                        if (e instanceof IOException){
+                            Toast.makeText(App.getInstance().getApplicationContext(),"Internet connection lost!",Toast.LENGTH_LONG).show();
+                        }
+                        else {
+                            Toast.makeText(App.getInstance().getApplicationContext(),"Bad credentials!",Toast.LENGTH_LONG).show();
+                        }
+                        view.showEmptyMessage(true);
                     }
 
                     @Override

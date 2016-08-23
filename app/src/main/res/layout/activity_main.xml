@@ -48,17 +48,24 @@
                 android:layout_gravity="center"
                 android:id="@+id/search_progress"/>
         </FrameLayout>
-        <ProgressBar
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_gravity="center"
-            android:background="@color/grey1"
-            android:id="@+id/list_progress"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:id="@+id/repo_list_empty_message"
             android:text="No rsults"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/error_message"
+            android:visibility="gone"/>
     </FrameLayout>
+    <ProgressBar
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:id="@+id/list_progress"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"/>
 </RelativeLayout>

@@ -4,12 +4,15 @@ import android.app.Activity;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.mermakov.testgithubclient.App;
 import com.mermakov.testgithubclient.MainActivity;
 import com.mermakov.testgithubclient.Tools;
 import com.mermakov.testgithubclient.data.RepoModel;
 import com.mermakov.testgithubclient.data.rest.dto.RepoDataDto;
+
+import java.io.IOException;
 
 import okhttp3.Credentials;
 import rx.Observable;
@@ -45,8 +48,6 @@ public class LoginPresenter implements LoginContract.UserActions{
                 boolean nameValid = !isEmpty(name)&&name.length()>2;
                 if (!nameValid){
                     view.showNameError("Name is too short");
-                }
-                else {
                 }
                 boolean passValid = !isEmpty(password) && password.length() > 8;
                 if (!passValid){
@@ -99,7 +100,13 @@ public class LoginPresenter implements LoginContract.UserActions{
 
                     @Override
                     public void onError(Throwable e) {
-
+                        if (e instanceof IOException){
+                            Toast.makeText(activity,"Internet connection lost!",Toast.LENGTH_LONG).show();
+                        }
+                        else {
+                            Toast.makeText(activity,"Bad credentials!",Toast.LENGTH_LONG).show();
+                        }
+                        view.clearFields();
                     }
 
                     @Override

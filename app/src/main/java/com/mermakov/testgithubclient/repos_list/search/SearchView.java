@@ -147,7 +147,7 @@ public class SearchView implements SearchContract.View {
     }
 
     private void expandCollapse(int start, int end){
-        ObjectAnimator expandCollapse = ObjectAnimator.ofFloat(searchResultContainer,"y",start,end).setDuration(500);
+        ObjectAnimator expandCollapse = ObjectAnimator.ofFloat(searchResultContainer,"y",start,end).setDuration(300);
         expandCollapse.start();
     }
 

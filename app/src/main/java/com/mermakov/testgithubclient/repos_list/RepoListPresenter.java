@@ -1,11 +1,14 @@
 package com.mermakov.testgithubclient.repos_list;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import com.mermakov.testgithubclient.App;
 import com.mermakov.testgithubclient.Tools;
 import com.mermakov.testgithubclient.data.RepoModel;
 import com.mermakov.testgithubclient.data.rest.dto.RepoDataDto;
+
+import java.io.IOException;
 
 import rx.Subscriber;
 
@@ -44,15 +47,29 @@ public class RepoListPresenter implements RepoListContract.ActionEvents {
                 @Override
                 public void onError(Throwable e) {
                     Log.e(TAG, e.getLocalizedMessage());
-                    e.getStackTrace();
+                    if (e instanceof IOException){
+                        Toast.makeText(App.getInstance().getApplicationContext(),"Internet connection lost!",Toast.LENGTH_LONG).show();
+                    }
+                    else {
+                        Toast.makeText(App.getInstance().getApplicationContext(),"Bad credentials!",Toast.LENGTH_LONG).show();
+                    }
+                    view.showEmpty(true);
+
                 }
 
                 @Override
                 public void onNext(RepoDataDto repoDataDto) {
-                    repoModel.setRepoDataDto(repoDataDto);
-                    view.setupUI(repoModel.getRepoDataDto().getRepos());
-                    view.showProgress(false);
-                    view.showList(true);
+                    if(repoDataDto!=null){
+                        if(!Tools.isNullOrEmpty(repoDataDto.getRepos())){
+                            repoModel.setRepoDataDto(repoDataDto);
+                            view.setupUI(repoModel.getRepoDataDto().getRepos());
+                            view.showProgress(false);
+                            view.showList(true);
+                        }
+                        else {
+                            view.showEmpty(true);
+                        }
+                    }
                 }
             });
         }

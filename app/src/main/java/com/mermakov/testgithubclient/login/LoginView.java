@@ -71,4 +71,9 @@ public class LoginView implements LoginContract.View {
     public EditText getPassword() {
         return password;
     }
+
+    public void clearFields(){
+        login.setText("");
+        password.setText("");
+    }
 }

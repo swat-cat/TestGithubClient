@@ -35,7 +35,7 @@ public class RepoListView implements RepoListContract.View{
 
     private void init(){
         list = (RecyclerView)root.findViewById(R.id.repos_list);
-        progressBar = (ProgressBar)root.findViewById(R.id.list_progress);
+        progressBar = (ProgressBar)activity.findViewById(R.id.list_progress);
         emptyMessage = (TextView)root.findViewById(R.id.repo_list_empty_message);
     }
 

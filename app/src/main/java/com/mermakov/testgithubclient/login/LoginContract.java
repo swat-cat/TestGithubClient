@@ -14,6 +14,7 @@ public interface LoginContract {
         Observable<CharSequence> passwordTextChangeAction();
         EditText getLogin();
         EditText getPassword();
+        void clearFields();
     }
     interface UserActions{
         void loginAction();
