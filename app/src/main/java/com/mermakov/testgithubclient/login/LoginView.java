@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import com.jakewharton.rxbinding.view.RxView;
 import com.jakewharton.rxbinding.widget.RxTextView;
@@ -22,6 +23,8 @@ public class LoginView implements LoginContract.View {
     private EditText password;
     private Button button;
 
+    private ProgressBar progressBar;
+
     public LoginView(Activity activity) {
         this.activity = activity;
         root = activity.findViewById(R.id.login_root);
@@ -32,6 +35,8 @@ public class LoginView implements LoginContract.View {
         login = (EditText)root.findViewById(R.id.etUserName);
         password = (EditText)root.findViewById(R.id.etPass);
         button = (Button)root.findViewById(R.id.btnSingIn);
+        progressBar = (ProgressBar)root.findViewById(R.id.login_progress);
+        showProgress(false);
     }
 
     @Override
@@ -62,6 +67,30 @@ public class LoginView implements LoginContract.View {
     @Override
     public void setLoginButtonEnable(boolean enable) {
         button.setEnabled(enable);
+    }
+
+    @Override
+    public void showUI(boolean show) {
+        if(show){
+            login.setVisibility(View.VISIBLE);
+            password.setVisibility(View.VISIBLE);
+            button.setVisibility(View.VISIBLE);
+        }
+        else {
+            login.setVisibility(View.GONE);
+            password.setVisibility(View.GONE);
+            button.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void showProgress(boolean show) {
+        if (show){
+            progressBar.setVisibility(View.VISIBLE);
+        }
+        else {
+            progressBar.setVisibility(View.GONE);
+        }
     }
 
     public EditText getLogin() {

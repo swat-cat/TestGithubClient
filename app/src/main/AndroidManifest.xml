@@ -20,7 +20,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".login.LoginActivity"/>
-        <activity android:name=".repos.MainActivity"/>
+        <activity android:name=".repos.MainActivity"
+            android:parentActivityName=".WelcomeActivity"/>
     </application>
 
 </manifest>

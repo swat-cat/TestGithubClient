@@ -43,7 +43,12 @@ public class SearchView implements SearchContract.View {
         SEARCH,CLEAR
     }
 
+    private enum  ListState{
+        SHOWN,HIDEN
+    }
+
     private IconState state;
+    private ListState listState;
 
     public SearchView(Activity activity) {
         this.activity = activity;
@@ -84,11 +89,18 @@ public class SearchView implements SearchContract.View {
         containerTop = searchResultContainer.getTop();
         containerBottom = searchResultContainer.getHeight();
         if (show){
-            searchResultContainer.setVisibility(View.VISIBLE);
-            expandCollapse(containerTop-containerBottom,containerTop);
+            if(listState != ListState.SHOWN){
+                searchResultContainer.setVisibility(View.VISIBLE);
+                expandCollapse(containerTop-containerBottom,containerTop);
+                listState = ListState.SHOWN;
+            }
         }
         else {
-            expandCollapse(containerTop,containerTop-containerBottom);
+            if (listState != ListState.HIDEN){
+                expandCollapse(containerTop,containerTop-containerBottom);
+                listState = ListState.HIDEN;
+            }
+
         }
     }
 

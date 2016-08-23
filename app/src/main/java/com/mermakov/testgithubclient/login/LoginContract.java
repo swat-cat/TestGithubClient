@@ -12,6 +12,8 @@ public interface LoginContract {
         Observable<Void> loginButtonAction();
         Observable<CharSequence> loginTextChangeAction();
         Observable<CharSequence> passwordTextChangeAction();
+        void showUI(boolean show);
+        void showProgress(boolean show);
         EditText getLogin();
         EditText getPassword();
         void clearFields();

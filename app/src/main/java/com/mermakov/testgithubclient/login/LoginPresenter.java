@@ -87,6 +87,8 @@ public class LoginPresenter implements LoginContract.UserActions{
                 final String login = view.getLogin().getText().toString().trim();
                 String password = view.getPassword().getText().toString().trim();
                 final String credentials = Credentials.basic(login, password);
+                view.showProgress(true);
+                view.showUI(false);
                 App.getInstance().getModelService().getRepoModel(credentials)
                     .resetRepoData().subscribe(new Subscriber<RepoDataDto>() {
                     @Override
@@ -102,6 +104,8 @@ public class LoginPresenter implements LoginContract.UserActions{
                         else {
                             Toast.makeText(activity,"Bad credentials!",Toast.LENGTH_LONG).show();
                         }
+                        view.showUI(true);
+                        view.showProgress(false);
                         view.clearFields();
                     }
 
@@ -116,6 +120,9 @@ public class LoginPresenter implements LoginContract.UserActions{
                                 loginAction();
                             }
                         }
+                        view.showUI(true);
+                        view.showProgress(false);
+                        view.clearFields();
                     }
                 });
             }
@@ -124,6 +131,8 @@ public class LoginPresenter implements LoginContract.UserActions{
 
     @Override
     public void loginAction() {
-        activity.startActivity(new Intent(activity, MainActivity.class));
+        Intent intent = new Intent(activity, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        activity.startActivity(intent);
     }
 }
