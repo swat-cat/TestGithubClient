@@ -4,6 +4,9 @@ import com.mermakov.testgithubclient.data.rest.GithubApi;
 import com.mermakov.testgithubclient.data.rest.GithubService;
 import com.mermakov.testgithubclient.data.rest.RetryWithDelay;
 import com.mermakov.testgithubclient.data.rest.dto.RepoDataDto;
+import com.mermakov.testgithubclient.data.rest.dto.SearchResultDto;
+
+import java.util.Map;
 
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
@@ -29,7 +32,18 @@ public class RepoModel {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
+    public Observable<SearchResultDto> searchRepoData(String query){
+        return githubApi.search(query)
+                .retryWhen(new RetryWithDelay(5,1000))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
     public void setRepoDataDto(RepoDataDto repoDataDto) {
         this.repoDataDto = repoDataDto;
+    }
+
+    public RepoDataDto getRepoDataDto() {
+        return repoDataDto;
     }
 }

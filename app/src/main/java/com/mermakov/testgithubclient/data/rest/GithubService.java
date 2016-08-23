@@ -59,11 +59,14 @@ public class GithubService {
                         Log.d(TAG,bodyString);
                         if(bodyString.startsWith("[")){
                             newStringBody = "{\"data\":"+bodyString+"}";
-                            Log.d(TAG,newStringBody);
-                            final Response.Builder newResponse = response.newBuilder()
-                                    .body(ResponseBody.create(JSON, newStringBody));
-                            response = newResponse.build();
                         }
+                        else {
+                            newStringBody = bodyString;
+                        }
+                        Log.d(TAG,newStringBody);
+                        final Response.Builder newResponse = response.newBuilder()
+                                .body(ResponseBody.create(JSON, newStringBody));
+                        response = newResponse.build();
 
                     } catch (IOException e) {
                         e.getLocalizedMessage();

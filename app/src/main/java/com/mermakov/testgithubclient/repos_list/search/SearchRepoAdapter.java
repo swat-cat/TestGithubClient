@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.mermakov.testgithubclient.R;
 import com.mermakov.testgithubclient.data.rest.dto.RepoDto;
+import com.mermakov.testgithubclient.data.rest.dto.SerachResultItemDTO;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -19,7 +20,7 @@ import java.util.List;
 public class SearchRepoAdapter extends RecyclerView.Adapter<SearchRepoAdapter.ViewHolder> {
     private static final String TAG = SearchRepoAdapter.class.getSimpleName();
 
-    private List<RepoDto> repositories;
+    private List<SerachResultItemDTO> repositories;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private TextView name;
@@ -30,7 +31,7 @@ public class SearchRepoAdapter extends RecyclerView.Adapter<SearchRepoAdapter.Vi
         }
     }
 
-    public SearchRepoAdapter(List<RepoDto> repositories) {
+    public SearchRepoAdapter(List<SerachResultItemDTO> repositories) {
         this.repositories = repositories;
     }
 
@@ -43,7 +44,7 @@ public class SearchRepoAdapter extends RecyclerView.Adapter<SearchRepoAdapter.Vi
 
     @Override
     public void onBindViewHolder(ViewHolder holder,final int position) {
-        final RepoDto repoDto = repositories.get(position);
+        final SerachResultItemDTO repoDto = repositories.get(position);
         if(repoDto!=null){
             holder.name.setText(repoDto.getName());
         }

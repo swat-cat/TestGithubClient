@@ -24,18 +24,19 @@ public class SplashActivity extends AppCompatActivity{
         logo = (ImageView) findViewById(R.id.logo);
         preparePulse();
         scaleDown.start();
-        if(TextUtils.isEmpty(App.getInstance().getPrefManager().getToken())){
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Intent intent = new Intent(App.getInstance().getApplicationContext(), LoginActivity.class);
-                    startActivity(intent);
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(TextUtils.isEmpty(App.getInstance().getPrefManager().getToken())) {
+                    Intent loginIntent = new Intent(App.getInstance().getApplicationContext(), LoginActivity.class);
+                    startActivity(loginIntent);
                 }
-            },3000);
-        }
-        else {
-
-        }
+                else {
+                    Intent mainIntent = new Intent(App.getInstance().getApplicationContext(),MainActivity.class);
+                    startActivity(mainIntent);
+                }
+            }
+        },3000);
 
     }
 

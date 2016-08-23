@@ -7,6 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:id="@+id/repos_list_root"
     tools:context="com.mermakov.testgithubclient.MainActivity">
 
     <include layout="@layout/search_view"
@@ -25,7 +26,10 @@
             android:layout_width="match_parent"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
+            android:id="@+id/search_result_container"
             android:padding="6dp"
+            android:background="@drawable/search_result_container_bg"
+            android:visibility="invisible"
             android:layout_height="200dp">
             <android.support.v7.widget.RecyclerView
                 android:layout_width="match_parent"
@@ -36,11 +40,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:id="@+id/search_empty_message"
                 android:text="No rsults"/>
             <ProgressBar
                 android:layout_width="24dp"
                 android:layout_height="24dp"
+                android:layout_gravity="center"
                 android:id="@+id/search_progress"/>
         </FrameLayout>
+        <ProgressBar
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:background="@color/grey1"
+            android:id="@+id/list_progress"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/repo_list_empty_message"
+            android:text="No rsults"/>
     </FrameLayout>
 </RelativeLayout>
