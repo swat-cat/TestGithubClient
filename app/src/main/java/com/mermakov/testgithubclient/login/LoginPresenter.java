@@ -2,15 +2,12 @@ package com.mermakov.testgithubclient.login;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.mermakov.testgithubclient.App;
-import com.mermakov.testgithubclient.MainActivity;
-import com.mermakov.testgithubclient.Tools;
-import com.mermakov.testgithubclient.data.RepoModel;
-import com.mermakov.testgithubclient.data.rest.dto.RepoDataDto;
+import com.mermakov.testgithubclient.repos.MainActivity;
+import com.mermakov.testgithubclient.services.rest.dto.RepoDataDto;
 
 import java.io.IOException;
 
@@ -18,7 +15,6 @@ import okhttp3.Credentials;
 import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
-import rx.functions.Action1;
 import rx.functions.Func2;
 
 import static android.text.TextUtils.isEmpty;

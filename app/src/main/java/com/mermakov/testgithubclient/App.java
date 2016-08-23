@@ -2,7 +2,9 @@ package com.mermakov.testgithubclient;
 
 import android.support.multidex.MultiDexApplication;
 
-import com.mermakov.testgithubclient.utils.cache.ModelService;
+import com.mermakov.testgithubclient.services.PrefManager;
+import com.mermakov.testgithubclient.services.cache.ModelService;
+
 
 /**
  * Created by max_ermakov on 8/21/16.
