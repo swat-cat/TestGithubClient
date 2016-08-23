@@ -112,8 +112,9 @@ public class LoginPresenter implements LoginContract.UserActions{
                     @Override
                     public void onNext(RepoDataDto repoDataDto) {
                         if (repoDataDto!=null){
-                            if (!Tools.isNullOrEmpty(repoDataDto.getRepos())){
+                            if (repoDataDto.getRepos()!=null){
                                 App.getInstance().getModelService().getRepoModel(credentials).setRepoDataDto(repoDataDto);
+                                //TODO Not safe, i know
                                 App.getInstance().getPrefManager().setToken(credentials);
                                 App.getInstance().getPrefManager().setUserName(login);
                                 loginAction();
